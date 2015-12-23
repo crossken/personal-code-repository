@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>运动基础</title>
+	<style>
+		div {
+			height: 200px;
+			width: 200px;
+			background: red;
+			position: absolute;
+			top: 50px;
+			left: 0;
+		}
+	</style>
+</head>
+<body>
+	<input type="button" id="btn1" value="运动">
+	<div id="div1"></div>
+	<script>
+		window.onload = function () {
+			var btn1 = document.getElementById('btn1');
+			var div1 = document.getElementById('div1');
+			var move = null;
+			var speed = 9;
+			btn1.onclick = function () {
+				clearInterval(move); //点击按钮时保证只有一个定时器在工作，保证重复点击按钮速度不会叠加
+				move = setInterval(startMove,30);
+			}
+			function startMove () {		
+				if (div1.offsetLeft >= 500) { //设置停止条件，注意不要用等号，否则可能会因为不能被除尽而停不下来
+					clearInterval(move);
+				} else { //必须加上else使得到达目标位置后不会继续移动。
+					div1.style.left = (div1.offsetLeft + speed + 'px')
+				}
+			}
+
+
+		}
+	</script>
+</body>
+</html>

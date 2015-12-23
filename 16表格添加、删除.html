@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+<body>
+	姓名：<input type="text" id="name">
+	年龄：<input type="text" id="age">
+	<input type="button" value="添加" id="btn1">
+	<table border="1" width="500px" id="tab1">
+		<thead>
+			<tr>
+				<td>ID</td>
+				<td>姓名</td>
+				<td>年龄</td>
+				<td>操作</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>blue</td>
+				<td>27</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>张三</td>
+				<td>23</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>李四</td>
+				<td>28</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>王五</td>
+				<td>25</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td>张伟</td>
+				<td>24</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+	<script>
+		window.onload = function () {
+			var tab1 = document.getElementById('tab1');
+			var rows = tab1.tBodies[0].rows;
+			var name = document.getElementById('name');
+			var age = document.getElementById('age');
+			var btn1 = document.getElementById('btn1');
+			var num = rows.length; //记录编号的变量
+			btn1.onclick = function () {
+				var newRow = document.createElement('tr');
+				num++;
+				newRow.innerHTML = '<td>' + num + '</td><td>' + name.value + '</td><td>' + age.value + '</td><td><a href="#">删除</a></td>';
+				tab1.tBodies[0].appendChild(newRow);
+				//必须在点击创建新元素时马上为其绑定删除事件。
+				var del = newRow.lastChild.getElementsByTagName('a')[0];
+				del.onclick = function () {
+					tab1.tBodies[0].removeChild(this.parentNode.parentNode);
+					return false;
+				}
+			}
+		}
+	</script>
+</body>
+</html>

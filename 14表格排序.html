@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <script>
+        window.onload = function () {
+            var btn1 = document.getElementById('btn1');
+            var tab1 = document.getElementById('tab1');
+            btn1.onclick = function () {
+                var arr = [];
+                var rows = tab1.tBodies[0].rows;
+                for (var i = 0; i < rows.length; i++) {
+                    arr.push(rows[i]);
+                }
+                arr.sort(function(row1,row2){
+                    var age1 = parseInt(row1.cells[0].innerHTML); //最后是innerHTML不是value！
+                    var age2 = parseInt(row2.cells[0].innerHTML);
+                    return age1-age2;
+                });
+                //用appendChild剪切节点进行排序，而不是用innerHTML，因为操作的事节点。
+                for (var i = 0; i < arr.length; i++) {
+                    tab1.tBodies[0].appendChild(arr[i]);
+                }
+            }
+        }
+
+        //jQuery
+    //   $(function() {
+    //   $rows = $('#tab1>tbody>tr');
+    //   $('#btn1').click(function(){
+    //     var arr = [];
+    //     $rows.each(function(){
+    //       arr.push(this);
+    //     });
+    //     arr.sort(function(a,b){
+    //       return parseInt(a.cells[0].innerHTML)-parseInt(b.cells[0].innerHTML);
+    //     });
+    //     $(arr).each(function(){
+    //       $(this).appendTo($('#tab1>tbody'));
+    //     });
+    //   })
+    // });
+    </script>
+</head>
+
+<body>
+    <input id="btn1" type="button" value="排序" />
+    <table id="tab1" border="1" width="500">
+       <thead>
+           <td>ID</td>
+           <td>姓名</td>
+           <td>年龄</td>
+           <td>操作</td>
+       </thead>
+       <tbody>
+           <tr>
+               <td>2</td>
+               <td>张三</td>
+               <td>23</td>
+               <td></td>
+           </tr>
+           <tr>
+               <td>6</td>
+               <td>王四</td>
+               <td>24</td>
+               <td></td>
+           </tr>
+           <tr>
+               <td>1</td>
+               <td>Blue</td>
+               <td>27</td>
+               <td></td>
+           </tr>
+           <tr>
+               <td>5</td>
+               <td>张伟</td>
+               <td>24</td>
+               <td></td>
+           </tr>
+           <tr>
+               <td>3</td>
+               <td>李四</td>
+               <td>28</td>
+               <td></td>
+           </tr>
+           <tr>
+               <td>4</td>
+               <td>王五</td>
+               <td>25</td>
+               <td></td>
+           </tr>
+       </tbody>
+   </table>
+</body>
+</html>

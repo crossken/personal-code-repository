@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>无缝滚动</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		#div1 {
+			position: relative;
+			width: 712px;
+			height: 108px;
+			margin: 50px auto;
+			overflow: hidden;
+		}
+		#div1 ul {
+			position: absolute;
+			left: 0;
+			top: 0;
+			
+		}
+		#div1 ul li {
+			list-style: none;
+			float: left;
+			/*			width:178px; height:108px;*/
+		}
+	</style>
+</head>
+<body>
+<!-- 	<button id="toleft" type="button">向左</button>
+	<button id＝"toright" type="button">向右</button> -->
+<!-- 	button居然不能绑定onclick事件！ -->
+	<a href="#">向左</a>
+	<a href="#">向右</a>
+	<div id="div1">
+		<ul>
+			<li><img src="1.jpg"></li>
+			<li><img src="2.jpg"></li>
+			<li><img src="3.jpg"></li>
+			<li><img src="4.jpg"></li>
+		</ul>
+	</div>
+	<script>
+		window.onload = function () {
+			var div = document.getElementById('div1');
+			var ul = div.getElementsByTagName('ul')[0];
+			var lis = ul.getElementsByTagName('li');
+			var speed = -2;
+			ul.innerHTML+=ul.innerHTML; //在js中进行内容复制，省去手写HTML
+			ul.style.width = lis[0].offsetWidth*lis.length+'px'; //令ul的宽度＝图片的宽度*li项数，再与px拼接；注意，这里的实际结果表示 数组的length长度是随着文档修改（如插入innerHTML）而实时更新的。此外这样的写法可以避免因为ul宽度问题导致图片不是平滑显示的
+			function move () {
+				switch (true) {
+					case ul.offsetLeft < -ul.offsetWidth/2:
+					ul.style.left = '0';
+					break;
+					case ul.offsetLeft > 0:
+					ul.style.left = -ul.offsetWidth/2 + 'px';
+					break;
+					default:
+					ul.style.left = ul.offsetLeft+speed+'px';	
+				}
+			}
+			var timer = setInterval(move,30);
+			div.onmouseover = function () {
+				clearInterval(timer);
+			}
+			div.onmouseout = function () {
+				timer = setInterval(move,30); //要把timer写上以使得clearInterval能发生作用。
+			}
+			document.getElementsByTagName('a')[0].onclick = function () {
+				speed = -2;
+			}
+			document.getElementsByTagName('a')[1].onclick = function () {
+				speed = 2;
+			}
+
+
+		}
+	</script>
+</body>
+</html>

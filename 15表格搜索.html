@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+	<body>
+		姓名：<input type="text" id="name">
+		<input type="button" value="搜索" id="btn1">
+		<table border="1" width="500px" id="tab1">
+			<thead>
+				<tr>
+					<td>ID</td>
+					<td>姓名</td>
+					<td>年龄</td>
+					<td>操作</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>blue</td>
+					<td>27</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>张三</td>
+					<td>23</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>李四</td>
+					<td>28</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>王五</td>
+					<td>25</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>张伟</td>
+					<td>24</td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+		<script>
+			window.onload = function () {
+				var name = document.getElementById('name');
+				var btn1 = document.getElementById('btn1');
+				var tab1 = document.getElementById('tab1');
+				var rows = tab1.tBodies[0].rows;
+				btn1.onclick = function () {
+					var arr = (name.value).toLowerCase().split(' '); //注意要把所有字符串统一转换为小写形式
+					for (var i = 0; i < rows.length; i++) {
+						rows[i].style.background = '';
+						for (var j = 0; j < arr.length; j++) {
+							if (rows[i].cells[1].innerHTML.indexOf(arr[j]) != -1) {
+								rows[i].style.background = 'yellow';
+								break;
+							}
+						};
+					};
+				}
+			}
+		</script>
+	</body>
+	</html>

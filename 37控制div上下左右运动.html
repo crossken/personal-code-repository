@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>测试</title>
+	<style>
+		#div1 {
+			width: 200px;
+			height: 200px;
+			background-color: red;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	</style>
+	<script src="jquery-2.1.4.min.js"></script>
+	<script src="jquery.easing.1.3.min.js"></script>
+</head>
+<body>
+	<div id="div1"></div>
+	<script>
+		window.onload = function () {
+			var div = document.getElementById('div1');
+			document.onkeydown = function (ev) {
+				var Event = ev || event;
+				move(div,Event.keyCode);
+			}
+			document.onkeyup = function () {
+				clearInterval(div.timer);
+			}
+			function move (obj,code) {
+				clearInterval(obj.timer);
+				switch (true) {
+					case code == 37:
+						obj.timer = setInterval(function(){obj.style.left = obj.offsetLeft-1+'px';},5);
+						break;
+					case code == 38:
+						obj.timer = setInterval(function(){obj.style.top = obj.offsetTop-1+'px';},5);
+						break;
+					case code == 39:
+						obj.timer = setInterval(function(){obj.style.left = obj.offsetLeft+1+'px';},5);
+						break;
+					case code == 40:
+						obj.timer = setInterval(function(){obj.style.top = obj.offsetTop+1+'px';},5);
+						break;
+					default:
+						return;
+				}
+			}
+		}
+		</script>
+	</body>
+	</html>

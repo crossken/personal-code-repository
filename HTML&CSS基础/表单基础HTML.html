@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单基础</title>
+</head>
+<body>
+	<form action="/register" method="post">
+		头像
+		<input type="file" name="avatar"><br>
+
+		昵称
+		<input type="text" name="nickname"><br>
+
+		学历
+		<select name="education">
+			<option value="assoicate" selected>大专</option>
+			<option value="bachelor">本科</option>
+		</select><br>
+
+		性别
+		<input type="radio" name="sex" value="male" id="male" checked><label for="male">男</label>
+		<input type="radio" name="sex" value="female" id="female"><label for="female">女</label><br>
+
+		爱好
+		<input type="checkbox" name="hobby" value="dianying" id="dianying" checked><label for="dianying">电影</label>
+		<input type="checkbox" name="hobby" value="sheying" id="sheying"><label for="sheying">摄影</label>
+		<input type="checkbox" name="hobby" value="yinyue" id="yinyue"><label for="yinyue">音乐</label>
+		<input type="checkbox" name="hobby" value="yuedu" id="yuedu" checked><label for="yuedu">阅读</label><br>
+
+		签名
+		<textarea name="qianming" id="qianming" cols="30" rows="10"></textarea><br>
+
+		<input type="submit" value="保存">
+	</form>
+</body>
+</html>

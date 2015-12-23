@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+<body>
+	<table border="1" width="500px" id="tab1">
+		<thead>
+			<tr>
+				<td>ID</td>
+				<td>姓名</td>
+				<td>年龄</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>blue</td>
+				<td>27</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>张三</td>
+				<td>23</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>李四</td>
+				<td>28</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>王五</td>
+				<td>25</td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td>张伟</td>
+				<td>24</td>
+			</tr>
+		</tbody>
+	</table>
+	<script>
+		window.onload = function () {
+			var tab1 = document.getElementById('tab1');
+			var rows = tab1.tBodies[0].rows;
+			var oldColor = ''; //在鼠标移入移出事件外，声明oldColor变量为空字符串。
+			for (var i = 0; i < rows.length; i++) {
+				rows[i].onmouseover = function () {
+					oldColor = this.style.backgroundColor; //用全局变量oldColor保存移入前的颜色（不要在前面加var使其变成局部变量！！）
+					this.style.backgroundColor = "yellow";
+				}
+				rows[i].onmouseout = function () {
+					this.style.backgroundColor = oldColor;
+				}
+				if (i%2==0) {
+					rows[i].style.backgroundColor = "#ccc";
+				}
+			}
+
+		}
+	</script>
+</body>
+</html>

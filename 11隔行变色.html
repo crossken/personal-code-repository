@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>隔行变色</title>
+</head>
+<body>
+	<ul>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+	<script>
+		//求模
+		window.onload = function () {
+			var ul = document.getElementsByTagName('ul')[0];
+			var lis = ul.getElementsByTagName('li');
+			for (var i = 0; i < lis.length; i++) {
+				lis[i].style.background = i%2 ? 'blue' : 'red';
+			}
+		}
+
+
+		// 独立判定条件
+
+		// window.onload = function () {
+		// 	var ul = document.getElementsByTagName('ul')[0];
+		// 	var lis = ul.getElementsByTagName('li');
+		// 	var odd = true;
+		// 	for (var i = 0; i < lis.length; i++) {
+		// 		lis[i].style.background = odd ? 'red' : 'blue';
+		// 		odd = !odd;
+		// 	}
+		// }
+
+
+		// jQuery
+
+		// $(function() {
+		// 	$('ul>li').css('backgroundColor','red').filter(':odd').css('backgroundColor', 'blue');
+		// });
+</script>
+</body>
+</html>

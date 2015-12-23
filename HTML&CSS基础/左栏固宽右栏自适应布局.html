@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>左栏固宽右栏自适应布局</title>
+	<style>
+		*{margin:0;padding:0;}
+		.parent{text-align: center;line-height:200px;height: 200px;}
+		.side{background-color: red;width: 200px;}
+		.main{background-color: blue;}
+
+		/*利用flex布局*/
+        /*
+        .parent{display: flex;}
+        .main{flex:1;margin-left: 10px;}
+        */
+
+
+        /*利用float单浮动布局*/
+        /*
+        .side{float: left;}
+        .main{margin-left: 210px;}
+        .parent:after{content: '.';display: block;clear: both;height:0;overflow: hidden;visibility: hidden;}
+        */
+
+
+		/*利用float双浮动布局*/
+		/*
+		.side{float: left;}
+		.main{float: right;width: calc(100% - 210px);}
+		*/ /*calc()内数字与运算符之间必须有空格*/
+
+
+
+        /*利用position进行主栏定位布局*/
+        /*
+        .parent{position:relative;}
+        .main{position: absolute;left: 210px;top: 0;bottom: 0;right: 0;}
+        */
+
+
+        /*利用position进行侧栏定位布局*/
+        /*
+        .parent{position:relative; padding-left:210px;}
+        .side{position: absolute;top: 0;left: 0;}
+        .main{width: 100%;}
+        */
+
+		/*利用table布局*/
+        /*
+        .parent{display:table;}
+		.side{margin-right:10px;}
+		.main{display:table-cell;width: 100%;}
+		*/
+        
+
+
+
+
+    </style>
+</head>
+<body>
+	<div class="parent"> 
+		<div class="side">侧栏</div>
+		<div class="main">主栏</div>
+	</div>
+</body>
+</html>

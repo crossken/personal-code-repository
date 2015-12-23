@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>仿FLASH的图片轮换效果 —— www.zhinengshe.com 智能社</title>
+    <link rel="stylesheet" type="text/css" href="zns_style.css">
+    <script src="move.js"></script>
+</head>
+
+<body>
+    <div id="playimages" class="play">
+        <ul class="big_pic">
+
+          <div class="prev"></div>
+          <div class="next"></div>
+
+<!-- 		<div class="text">加载图片说明……</div>
+  <div class="length">计算图片数量……</div> -->
+
+  <a class="mark_left" href="javascript:;"></a>
+  <a class="mark_right" href="javascript:;"></a>
+  <!-- 		<div class="bg"></div> -->
+
+  <li style="z-index:1;"><img src="images/1.jpg" /></li>
+  <li><img src="images/2.jpg" /></li>
+  <li><img src="images/3.jpg" /></li>
+  <li><img src="images/4.jpg" /></li>
+  <li><img src="images/5.jpg" /></li>
+  <li><img src="images/6.jpg" /></li>
+</ul>
+
+<div class="small_pic">
+    <ul style="width:390px;">
+        <li style="filter: 100; opacity: 1;"><img src="images/1.jpg" /></li>
+        <li><img src="images/2.jpg" /></li>
+        <li><img src="images/3.jpg" /></li>
+        <li><img src="images/4.jpg" /></li>
+        <li><img src="images/5.jpg" /></li>
+        <li><img src="images/6.jpg" /></li>
+    </ul>
+</div>
+
+</div>
+<script>
+    window.onload = function () {
+
+        //移动小图区域
+        function moveSmallUl () {
+            switch (true) {
+                case cur_pic == 0:
+                startMove(small_ul,'left',0);
+                break;
+                case cur_pic == small_lis.length-1:
+                startMove(small_ul,'left',-130*(small_lis.length-3));
+                break;
+                default:
+                startMove(small_ul,'left',-130*(cur_pic-1));
+            }
+        }
+
+        //切换大图
+        function tabBigPic () {
+            big_lis[cur_pic].style.height = '0';
+            big_lis[cur_pic].style.zIndex = index + '';
+            startMove(big_lis[cur_pic],'height',320);
+        }
+
+        //获取页面元素
+        var playimages = document.getElementById('playimages');
+        var mark_left = getByClass(document,'mark_left')[0];
+        var mark_right = getByClass(document,'mark_right')[0];
+        var prev = getByClass(document,'prev')[0];
+        var next = getByClass(document,'next')[0];
+        var big_pic = getByClass(document,'big_pic')[0];
+        var small_pic = getByClass(document,'small_pic')[0];
+        var small_ul = small_pic.getElementsByTagName('ul')[0];
+        var big_lis = big_pic.getElementsByTagName('li');
+        var small_lis = small_pic.getElementsByTagName('li');
+
+        //设置相关参数初始值
+        var cur_pic = 0;
+        var index = 1;
+        small_ul.style.width = small_lis[0].offsetWidth*small_lis.length + 'px';  //设置包含小图的ul的宽度使得小图在同一水平线上显示
+
+
+        //hover时显示左右按钮
+        mark_left.onmouseover = prev.onmouseover = function () {
+            startMove(prev,'opacity',100);
+        }
+        mark_right.onmouseover = next.onmouseover = function () {
+            startMove(next,'opacity',100);
+        }
+        mark_left.onmouseout = prev.onmouseout = function () {
+            startMove(prev,'opacity',0);
+        }
+        mark_right.onmouseout = next.onmouseout = function () {
+            startMove(next,'opacity',0);
+        }
+
+        //点击“下一张”
+        next.onclick = function () {
+            //点击时，将切换前的小图透明度设置为0.6
+            startMove(small_lis[cur_pic],'opacity',60);        
+
+            //当前图片序号+1 大图显示层级z-index+1
+            cur_pic++;
+            index++;
+
+            //若点击的是最后一张图片，则跳到第一张图片
+            if (cur_pic == big_lis.length) {
+                cur_pic = 0;
+            }
+
+            //点击时，将切换后的小图透明度设置为1
+            startMove(small_lis[cur_pic],'opacity',100);
+
+            moveSmallUl();
+
+            tabBigPic();
+        }
+
+        //点击“上一张”
+        prev.onclick = function () {
+            startMove(small_lis[cur_pic],'opacity',60);
+
+            cur_pic--;
+            index++;
+
+            if (cur_pic == -1) {
+                cur_pic = big_lis.length-1;
+            }
+
+            startMove(small_lis[cur_pic],'opacity',100);
+
+            moveSmallUl();
+
+            tabBigPic();
+        }
+
+
+        for (var i = 0; i < small_lis.length; i++) {
+            small_lis[i].index = i;
+
+            //当点击小图时 
+            small_lis[i].onclick = function () {
+
+                //如果点击的是当前图片，则退出函数
+                if(cur_pic == this.index) return;
+
+                //设置小图透明度
+                startMove(small_lis[cur_pic],'opacity',60);
+                startMove(this,'opacity',100);
+
+                //当前图片序号=当前图片index值 大图显示层级z-index+1
+                cur_pic = this.index;
+                index++;
+
+                //移动小图区域
+                moveSmallUl();
+
+                //切换显示大图
+                tabBigPic();
+            }
+
+            //当hover小图时改变透明度
+            small_lis[i].onmouseover = function () {
+               if(cur_pic == this.index) return;
+               startMove(this,'opacity',100);
+            }
+            small_lis[i].onmouseout = function () {
+               if(cur_pic == this.index) return;
+               startMove(this,'opacity',60);
+            }
+       }
+        
+
+        //hover时停止自动切换图片，移开后恢复自动切换
+        var timer = setInterval(next.onclick,2000);
+        playimages.onmouseover = function () {
+            clearInterval(timer);
+        }
+        playimages.onmouseout = function () {
+            timer = setInterval(next.onclick,2000);
+        }
+
+    }
+</script>
+
+</body>
+</html>
